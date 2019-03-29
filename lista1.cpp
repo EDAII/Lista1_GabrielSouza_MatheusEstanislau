@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
-#define DIM 10
+#define DIM 50
 
 using namespace std;
 
@@ -14,17 +14,21 @@ void popularVetor(int vetor[]);
 void imprimeVetor(int vetor[]);
 int menuEntrada();
 int menuPratica();
+int menuTutorial();
 void apresentacao();
+void tutorialBuscaSequencial();
+void tutorialBuscaBinaria();
+void tutorialBuscaArvore();
 void mostra1();
 void mostra2();
 void mostra3();
-void tempo();
 
 int main()
 {
     int numBusca,
         menuEn,
         menuPra,
+        menuTuto,
         indice,
         vetor[DIM];
     clock_t inicio,
@@ -37,29 +41,62 @@ int main()
     apresentacao();
 
     //WORKING
+    //Menu Superior
     do{
         menuEn = menuEntrada();
         switch (menuEn)
         {
             case 1:
+            //Menu Tutorial
+                do
+                {
+                    menuTuto = menuTutorial();
+                    switch (menuTuto)
+                    {
+                        case 1:
+                            system("clear");
+                            tutorialBuscaSequencial();
+                            break;
+                        case 2:
+                            system("clear");
+                            tutorialBuscaBinaria();
+                            break;
+                        case 3:
+                            system("clear");
+                            //tutorialBuscaArvore();
+                            break;
+                        case 0:
+                            system("clear");
+                            printf("Então Flws\n");
+                    
+                        default:
+                            system("clear");
+                            printf("Uai, não entendi\n");
+                            break;
+                    }
+                } while (menuTuto);
+                
                 system("clear");
-                printf("EM DESENVOLVIMENTO!!\n");
-                printf("TUTORIAL\n");
                 break;
+            //Menu Prática
             case 2:
                 do
                 {
                     menuPra = menuPratica();
                     switch (menuPra)
                     {
-                        case 1:
+                        case 1://Sequencial
                             system("clear");
                             printf("EM DESENVOLVIMENTO!!\n");
                             printf("Busca Sequencial\n");
                             break;
-                        case 2:
+                        case 2://Binario
                             system("clear");
-                            printf("Busca Binaria\n");
+                            imprimeVetor(vetor);
+                            printf("Digite o valor a ser pesquisado: ");
+                            scanf("%d", &numBusca);
+                            indice = buscaBin(vetor, 0, DIM-1, numBusca);
+                            printf("Indice: %d\n", indice);
                             break;
                         case 5:
                             imprimeVetor(vetor);
@@ -98,7 +135,7 @@ int buscaBin(int vetor[], int esquerda, int direita, int valor){
         int i = esquerda+(direita-esquerda)/2;
         int atual = vetor[i];
         if(atual == valor){
-            return i;
+            return i+1;
         }
         if(atual > valor){
             printf("%d - %d\n", esquerda, direita);
@@ -128,6 +165,77 @@ void buscaSequencial(int vetor[], int valor){
     }
 }
 
+void tutorialBuscaSequencial(){
+    system("clear");
+    printf("Busca sequencial, como o proprio nome diz eh uma busca feita em sequencia,\n");
+    printf("registro a registro. O que em um DataSet grande, chega a ser inviável sua utilizacao\n");      
+    printf("\nVamos a um exemplo?!\n");
+    pause(9.0);
+    system("clear");
+
+    printf("Imagine um vetor de 10 elementos: Vetor{1,2,3,4,5,6,7,8,9,10}\n");
+    printf("Agora imagine que você queira saber qual a posição que se encontra o valor 9\n.");        
+    printf("O algorismo irá percorrer todo o vetor para retorna o valor.\nAcompanhe o exemplo:\n");       
+    pause(11.0);
+    system("clear");
+
+    printf("{x, , , , , , , , , }\n");
+    pause(1);
+    system("clear");
+    printf("{ ,x, , , , , , , , }\n");
+    pause(1);
+    system("clear");
+    printf("{ , ,x, , , , , , , }\n");
+    pause(1);
+    system("clear");
+    printf("{ , , ,x, , , , , , }\n");
+    pause(1);
+    system("clear");
+    printf("{ , , , ,x, , , , , }\n");
+    pause(1);
+    system("clear");
+    printf("{ , , , , ,x, , , , }\n");
+    pause(1);
+    system("clear");
+    printf("{ , , , , , ,x, , , }\n");
+    pause(1);
+    system("clear");
+    printf("{ , , , , , , ,x, , }\n");
+    pause(1);
+    system("clear");
+    printf("{ , , , , , , , ,9, }\n");
+    pause(1);
+    system("clear");
+    printf("{ , , , , , , , , ,x}\n");
+    pause(1);
+}
+
+void tutorialBuscaBinaria(){
+    system("clear");
+    printf("Vimos que a busca sequencial pode ser demasiadamente demorada, entao\n");
+    printf("surge a busca binaria. Ela consiste em fazer divisoes (por 2) sucessivas\n");
+    printf("ate encontrar o valor. Para cada iteracao o vetor e reduzido pela metade\n");
+    printf("o que reduz drasticamente o tempo de execucao, porem o vetor precisa estar ordenado!\n\n");
+
+    printf("Vamos achar o 9 de novo!\n");
+    pause(20);
+
+    system("clear");
+    printf("{1,2,3,4,5,6,7,8,9,10}\n");
+    pause(1);
+    //system("clear");
+    printf("          {6,7,8,9,10}\n");
+    pause(1);
+    //system("clear");
+    printf("              {8,9,10}\n");
+    pause(1);
+    //system("clear");
+    printf("                {9}\n");
+    pause(1);
+
+
+}
+
 void popularVetor(int vetor[]){
     for(int i = 0;i<DIM;i++){
         vetor[i] = i*2+1;
@@ -135,15 +243,33 @@ void popularVetor(int vetor[]){
 }
 
 void imprimeVetor(int vetor[]){
+    printf("[");
     for(int i=0;i<DIM;i++){
-        printf("Vetor[%d]: %d\n", i, vetor[i]);
+        printf("%d ", vetor[i]);
     }
+    printf("]\n");
+}
+
+int menuTutorial(){
+    int opcao;
+
+    printf("==========Tutorial==========\n");
+    printf("1 - Busca Sequencial\n");
+    printf("2 - Busca Binaria\n");
+    printf("3 - Busca Árvore Binária\n");
+    printf("0 - Sair\n");
+    printf("============================\n");
+    
+    printf("Digite sua opção: ");
+    scanf("%d", &opcao);
+
+    return opcao;
 }
 
 int menuEntrada(){
     int opcao;
 
-    printf("============Menu============\n");
+    printf("==========Pratica===========\n");
     printf("1 - Tutorial\n");
     printf("2 - Prática\n");
     printf("0 - Sair\n");
@@ -188,14 +314,6 @@ void pause (float delay1) {
 
    return;
 
-}
-
-void tempo(){
-    float inicio;
-    inicio = clock();
-    while((clock() - inicio) < 3000000){
-        
-    }
 }
 
 void apresentacao(){
