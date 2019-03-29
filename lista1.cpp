@@ -8,6 +8,7 @@ using namespace std;
 
 int buscaBin(int vetor[], int esquerda, int direita, int valor);
 int buscaSeq(int vetor[], int valor);
+int pesqInter(int vetor[], int valor);
 void buscaSequencial(int vetor[], int valor);
 void pause (float delay1);
 void popularVetor(int vetor[]);
@@ -107,6 +108,17 @@ int main()
                             printf("Posicao: %d\n", indice);
                             printf("Tempo de Execucao(MENU): %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
                             break;
+                        case 3://Interpolacao
+                            system("clear");
+                            imprimeVetor(vetor);
+                            printf("Digite o valor a ser pesquisado: ");
+                            scanf("%d", &numBusca);
+                            inicio = clock();
+                            pesqInter(vetor, numBusca);
+                            fim = clock();
+                            printf("Tempo de Execucao(MENU): %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
+                            //printf("Indice: %d\n", indice);
+                            break;
                         case 5:
                             imprimeVetor(vetor);
                             break;
@@ -165,6 +177,31 @@ int buscaBin(int vetor[], int esquerda, int direita, int valor){
 //         return -1;
 //     }
 // }
+
+int pesqInter(int vetor[], int valor) {
+    int ini = 0;
+    int meio;
+    int fim = DIM;
+    clock_t inicio, fimM;
+
+    inicio = clock();
+    while(ini <= fim) {
+        meio = ini + ((fim-ini)*(valor-vetor[ini])) / (vetor[fim]-vetor[ini]);
+        if(valor < vetor[meio]) {
+            fim = meio -1;
+            } 
+        else if (valor > vetor[meio]) {
+            ini = meio + 1;
+            } 
+        else{
+            return meio;
+            }
+        }
+        return-1;
+        fimM = clock();
+        printf("Tempo de execucao: %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
+    }
+
 
 void buscaSequencial(int vetor[], int valor){
     int aux = -1;
@@ -332,7 +369,7 @@ int menuPratica(){
     printf("============Menu============\n");
     printf("1 - Busca Sequencial\n");
     printf("2 - Busca Binária\n");
-    printf("3 - Busca em Árvore binária\n");
+    printf("3 - Busca por Interpolação\n");
     printf("4 - Comparativo\n");
     printf("5 - Imprimir Vetor\n");
     printf("0 - Sair\n");
