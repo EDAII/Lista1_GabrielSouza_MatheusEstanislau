@@ -31,6 +31,7 @@ int main()
         menuPra,
         menuTuto,
         indice,
+        meio,
         vetor[DIM];
     clock_t inicio,
             fim;
@@ -114,10 +115,10 @@ int main()
                             printf("Digite o valor a ser pesquisado: ");
                             scanf("%d", &numBusca);
                             inicio = clock();
-                            pesqInter(vetor, numBusca);
+                            meio = pesqInter(vetor, numBusca);
                             fim = clock();
                             printf("Tempo de Execucao(MENU): %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
-                            //printf("Indice: %d\n", indice);
+                            printf("Indice: %d\n", meio);
                             break;
                         case 5:
                             imprimeVetor(vetor);
@@ -199,7 +200,7 @@ int pesqInter(int vetor[], int valor) {
         }
         return-1;
         fimM = clock();
-        printf("Tempo de execucao: %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
+        printf("Posicao: %d\n", meio);   
     }
 
 
