@@ -280,7 +280,7 @@ int menuTutorial(){
     printf("==========Tutorial==========\n");
     printf("1 - Busca Sequencial\n");
     printf("2 - Busca Binaria\n");
-    printf("3 - Busca Árvore Binária\n");
+    printf("3 - Busca por Interpolação\n");
     printf("0 - Sair\n");
     printf("============================\n");
     
