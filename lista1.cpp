@@ -7,7 +7,7 @@
 using namespace std;
 
 int buscaBin(int vetor[], int esquerda, int direita, int valor);
-//int buscaSeq(int vetor[], int valor);
+int buscaSeq(int vetor[], int valor);
 void buscaSequencial(int vetor[], int valor);
 void pause (float delay1);
 void popularVetor(int vetor[]);
@@ -18,7 +18,7 @@ int menuTutorial();
 void apresentacao();
 void tutorialBuscaSequencial();
 void tutorialBuscaBinaria();
-void tutorialBuscaArvore();
+void tutorialBuscaPorInterpolacao();
 void mostra1();
 void mostra2();
 void mostra3();
@@ -63,7 +63,7 @@ int main()
                             break;
                         case 3:
                             system("clear");
-                            //tutorialBuscaArvore();
+                            tutorialBuscaPorInterpolacao();
                             break;
                         case 0:
                             system("clear");
@@ -87,16 +87,25 @@ int main()
                     {
                         case 1://Sequencial
                             system("clear");
-                            printf("EM DESENVOLVIMENTO!!\n");
-                            printf("Busca Sequencial\n");
+                            imprimeVetor(vetor);
+                            printf("Digite o valor a ser pesquisado: ");
+                            scanf("%d", &numBusca);
+                            inicio = clock();
+                            buscaSequencial(vetor, numBusca);
+                            fim = clock();
+                            printf("Tempo de Execucao(MENU): %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
+                            //printf("Indice: %d\n", indice);
                             break;
                         case 2://Binario
                             system("clear");
                             imprimeVetor(vetor);
                             printf("Digite o valor a ser pesquisado: ");
                             scanf("%d", &numBusca);
+                            inicio = clock();
                             indice = buscaBin(vetor, 0, DIM-1, numBusca);
-                            printf("Indice: %d\n", indice);
+                            fim = clock();
+                            printf("Posicao: %d\n", indice);
+                            printf("Tempo de Execucao(MENU): %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
                             break;
                         case 5:
                             imprimeVetor(vetor);
@@ -150,19 +159,31 @@ int buscaBin(int vetor[], int esquerda, int direita, int valor){
 // int buscaSeq(int vetor[], int valor){
 //     for(int i=0;i<DIM;i++){
 //         if(valor==vetor[i]){
+//             printf("vetor[%d]: %d\n", i, vetor[i]);
 //             return i;
 //         }
+//         return -1;
 //     }
 // }
 
 void buscaSequencial(int vetor[], int valor){
+    int aux = -1;
+    clock_t inicio, fim;
+
+    inicio = clock();
     for(int i=0;i<DIM;i++){
         if(vetor[i]==valor){
-            printf("Indice: %d\n", i);
-        }else{
-            printf("Valor não encontrado\n");
+            aux = i;
         }
     }
+
+    if(aux != -1){
+        printf("Posicao: %d\n", aux+1);
+    }else{
+        printf("Valor não encontrado\n");
+    }
+    fim = clock();
+    printf("Tempo de execucao: %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
 }
 
 void tutorialBuscaSequencial(){
@@ -233,7 +254,30 @@ void tutorialBuscaBinaria(){
     printf("                {9}\n");
     pause(1);
 
+}
 
+void tutorialBuscaPorInterpolacao(){
+    system("clear");
+    printf("A Pesquisa por interpolação é uma variante mais otimizada da busca binária\n");
+    printf("Para melhor utilização, dados ordenados e uniformes são essenciais\n");
+    printf("Se encontrar o item pesquisado ele retorna o índice\n");
+    printf("Caso contrário ele divide o vetor em duas partes pelo seguinte método:\n");
+    printf("meio = inferior + ((superior - inferior)/(A[superior] - A[inferior])) * (x - A[inferior)\n");
+    printf("onde: A = lista ou vetor\n");
+    printf("      inferior = indice mais baixo da lista/vetor\n");
+    printf("      superior = indice mais alto da lista/vetor\n");
+    printf("      A[n] = valor armazenado no índice 'n' da lista \n");
+    printf("      x = valor procurado\n");
+    printf("Exemplo: Em um vetor y = (1,2,3,4,5,6,7,8,9,10)iremos buscar a posição que o elemento 2 ocupa\n");
+    pause(20);
+    printf("temos que inferior = 0, superior = 9, A[inferior] = 1, A[superior] = 10 e x = 2\n");
+     pause(1);
+    printf("na equação : meio = 0 + ((9-0)/(10 - 1)) * (2 - 1)\n");
+     pause(1);
+    printf("             meio = (9/9) * (1)\n");
+     pause(1);
+    printf("             meio = 1\n");
+     pause(1);
 }
 
 void popularVetor(int vetor[]){
@@ -256,7 +300,7 @@ int menuTutorial(){
     printf("==========Tutorial==========\n");
     printf("1 - Busca Sequencial\n");
     printf("2 - Busca Binaria\n");
-    printf("3 - Busca Árvore Binária\n");
+    printf("3 - Busca por Interpolação\n");
     printf("0 - Sair\n");
     printf("============================\n");
     
