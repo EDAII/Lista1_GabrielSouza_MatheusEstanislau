@@ -33,7 +33,6 @@ int main()
         vetor[DIM];
     clock_t inicio,
             fim;
-    char a;
     string bee = "\U0001F41D";
 
     popularVetor(vetor);
@@ -187,17 +186,21 @@ void buscaSequencial(int vetor[], int valor){
 }
 
 void tutorialBuscaSequencial(){
+    char lixo;
     system("clear");
     printf("Busca sequencial, como o proprio nome diz eh uma busca feita em sequencia,\n");
     printf("registro a registro. O que em um DataSet grande, chega a ser inviável sua utilizacao\n");      
-    printf("\nVamos a um exemplo?!\n");
-    pause(9.0);
+    printf("\nDigite ENTER para continuar\n");
+    scanf("%c", &lixo);
+    //pause(9.0);
     system("clear");
 
     printf("Imagine um vetor de 10 elementos: Vetor{1,2,3,4,5,6,7,8,9,10}\n");
     printf("Agora imagine que você queira saber qual a posição que se encontra o valor 9\n.");        
-    printf("O algorismo irá percorrer todo o vetor para retorna o valor.\nAcompanhe o exemplo:\n");       
-    pause(11.0);
+    printf("O algorismo irá percorrer todo o vetor para retorna o valor.\nAcompanhe o exemplo:\n");
+    printf("\nDigite ENTER para continuar\n");
+    scanf("%c", &lixo);       
+    //pause(11.0);
     system("clear");
 
     printf("{x, , , , , , , , , }\n");
@@ -232,6 +235,8 @@ void tutorialBuscaSequencial(){
 }
 
 void tutorialBuscaBinaria(){
+    char lixo;
+
     system("clear");
     printf("Vimos que a busca sequencial pode ser demasiadamente demorada, entao\n");
     printf("surge a busca binaria. Ela consiste em fazer divisoes (por 2) sucessivas\n");
@@ -239,7 +244,8 @@ void tutorialBuscaBinaria(){
     printf("o que reduz drasticamente o tempo de execucao, porem o vetor precisa estar ordenado!\n\n");
 
     printf("Vamos achar o 9 de novo!\n");
-    pause(20);
+    printf("\nDigite ENTER para continuar\n");
+    scanf("%c", &lixo);
 
     system("clear");
     printf("{1,2,3,4,5,6,7,8,9,10}\n");
@@ -257,6 +263,8 @@ void tutorialBuscaBinaria(){
 }
 
 void tutorialBuscaPorInterpolacao(){
+    char lixo;
+
     system("clear");
     printf("A Pesquisa por interpolação é uma variante mais otimizada da busca binária\n");
     printf("Para melhor utilização, dados ordenados e uniformes são essenciais\n");
@@ -269,15 +277,19 @@ void tutorialBuscaPorInterpolacao(){
     printf("      A[n] = valor armazenado no índice 'n' da lista \n");
     printf("      x = valor procurado\n");
     printf("Exemplo: Em um vetor y = (1,2,3,4,5,6,7,8,9,10)iremos buscar a posição que o elemento 2 ocupa\n");
-    pause(20);
-    printf("temos que inferior = 0, superior = 9, A[inferior] = 1, A[superior] = 10 e x = 2\n");
-     pause(1);
-    printf("na equação : meio = 0 + ((9-0)/(10 - 1)) * (2 - 1)\n");
-     pause(1);
-    printf("             meio = (9/9) * (1)\n");
-     pause(1);
-    printf("             meio = 1\n");
-     pause(1);
+    printf("\nDigite ENTER para continuar\n");
+    scanf("%c", &lixo);
+
+    
+        printf("temos que inferior = 0, superior = 9, A[inferior] = 1, A[superior] = 10 e x = 2\n");
+        pause(1);
+        printf("na equação : meio = 0 + ((9-0)/(10 - 1)) * (2 - 1)\n");
+        pause(1);
+        printf("             meio = (9/9) * (1)\n");
+        pause(1);
+        printf("             meio = 1\n");
+        pause(1);
+    
 }
 
 
@@ -314,7 +326,7 @@ int menuTutorial(){
 int menuEntrada(){
     int opcao;
 
-    printf("==========Pratica===========\n");
+    printf("============Menu============\n");
     printf("1 - Tutorial\n");
     printf("2 - Prática\n");
     printf("0 - Sair\n");
@@ -329,14 +341,14 @@ int menuEntrada(){
 int menuPratica(){
     int opcao;
 
-    printf("============Menu============\n");
+    printf("============Pratica============\n");
     printf("1 - Busca Sequencial\n");
     printf("2 - Busca Binária\n");
     printf("3 - Busca em Árvore binária\n");
     printf("4 - Comparativo\n");
     printf("5 - Imprimir Vetor\n");
     printf("0 - Sair\n");
-    printf("============================\n");
+    printf("===============================\n");
 
     printf("Digite sua opção: ");
     scanf("%d", &opcao);
@@ -362,8 +374,10 @@ void pause (float delay1) {
 }
 
 void apresentacao(){
+    char lixo;
+
     system("clear");
-    printf("Bem vindo ao seu tutorial de Buscas!!!\n");
+    printf("Bem vindo ao tutorial de Buscas!!!\n");
     pause(2.0);
     system("clear");
     printf("Aqui você irá aprender como funciona 3 métodos de busca:\n");
