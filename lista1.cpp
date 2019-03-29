@@ -279,29 +279,6 @@ void tutorialBuscaPorInterpolacao(){
     printf("             meio = 1\n");
      pause(1);
 }
-void tutorialBuscaPorInterpolacao(){
-    system("clear");
-    printf("A Pesquisa por interpolação é uma variante mais otimizada da busca binária\n");
-    printf("Para melhor utilização, dados ordenados e uniformes são essenciais\n");
-    printf("Se encontrar o item pesquisado ele retorna o índice\n");
-    printf("Caso contrário ele divide o vetor em duas partes pelo seguinte método:\n");
-    printf("meio = inferior + ((superior - inferior)/(A[superior] - A[inferior])) * (x - A[inferior)\n");
-    printf("onde: A = lista ou vetor\n");
-    printf("      inferior = indice mais baixo da lista/vetor\n");
-    printf("      superior = indice mais alto da lista/vetor\n");
-    printf("      A[n] = valor armazenado no índice 'n' da lista \n");
-    printf("      x = valor procurado\n");
-    printf("Exemplo: Em um vetor y = (1,2,3,4,5,6,7,8,9,10)iremos buscar a posição que o elemento 2 ocupa\n");
-    pause(20);
-    printf("temos que inferior = 0, superior = 9, A[inferior] = 1, A[superior] = 10 e x = 2\n");
-     pause(1);
-    printf("na equação : meio = 0 + ((9-0)/(10 - 1)) * (2 - 1)\n");
-     pause(1);
-    printf("             meio = (9/9) * (1)\n");
-     pause(1);
-    printf("             meio = 1\n");
-     pause(1);
-}
 
 
 void popularVetor(int vetor[]){
