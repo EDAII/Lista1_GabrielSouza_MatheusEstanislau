@@ -1,3 +1,7 @@
+/*Lista 01 - Métodos de Busca
+Gabriel Alves - 15/0009917
+Matheus
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -7,9 +11,10 @@
 using namespace std;
 
 int buscaBin(int vetor[], int esquerda, int direita, int valor);
-int buscaSeq(int vetor[], int valor);
+int buscaBinSimples(int vetor[], int esquerda, int direita, int valor);
 int pesqInter(int vetor[], int valor);
 void buscaSequencial(int vetor[], int valor);
+void comparativo(int vetor[], int valor);
 void pause (float delay1);
 void popularVetor(int vetor[]);
 void imprimeVetor(int vetor[]);
@@ -94,7 +99,7 @@ int main()
                             inicio = clock();
                             buscaSequencial(vetor, numBusca);
                             fim = clock();
-                            printf("Tempo de Execucao(MENU): %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
+                            printf("Tempo de Execucao: %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
                             //printf("Indice: %d\n", indice);
                             break;
                         case 2://Binario
@@ -106,7 +111,7 @@ int main()
                             indice = buscaBin(vetor, 0, DIM-1, numBusca);
                             fim = clock();
                             printf("Posicao: %d\n", indice);
-                            printf("Tempo de Execucao(MENU): %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
+                            printf("Tempo de Execucao: %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
                             break;
                         case 3://Interpolacao
                             system("clear");
@@ -116,8 +121,15 @@ int main()
                             inicio = clock();
                             meio = pesqInter(vetor, numBusca);
                             fim = clock();
-                            printf("Tempo de Execucao(MENU): %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
+                            printf("Tempo de Execucao: %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
                             printf("Indice: %d\n", meio);
+                            break;
+                        case 4:
+                            system("clear");
+                            imprimeVetor(vetor);
+                            printf("Digite um dos numeros acima: ");
+                            scanf("%d", &numBusca);
+                            comparativo(vetor, numBusca);
                             break;
                         case 5:
                             imprimeVetor(vetor);
@@ -168,16 +180,6 @@ int buscaBin(int vetor[], int esquerda, int direita, int valor){
     return -1;
 }
 
-// int buscaSeq(int vetor[], int valor){
-//     for(int i=0;i<DIM;i++){
-//         if(valor==vetor[i]){
-//             printf("vetor[%d]: %d\n", i, vetor[i]);
-//             return i;
-//         }
-//         return -1;
-//     }
-// }
-
 int pesqInter(int vetor[], int valor) {
     int ini = 0;
     int meio;
@@ -194,7 +196,7 @@ int pesqInter(int vetor[], int valor) {
             ini = meio + 1;
             } 
         else{
-            return meio;
+            return meio+1;
             }
         }
         return-1;
@@ -205,9 +207,7 @@ int pesqInter(int vetor[], int valor) {
 
 void buscaSequencial(int vetor[], int valor){
     int aux = -1;
-    clock_t inicio, fim;
 
-    inicio = clock();
     for(int i=0;i<DIM;i++){
         if(vetor[i]==valor){
             aux = i;
@@ -219,8 +219,6 @@ void buscaSequencial(int vetor[], int valor){
     }else{
         printf("Valor não encontrado\n");
     }
-    fim = clock();
-    printf("Tempo de execucao: %lfms\n", (float)(fim-inicio)/CLOCKS_PER_SEC);
 }
 
 void tutorialBuscaSequencial(){
@@ -228,17 +226,13 @@ void tutorialBuscaSequencial(){
     system("clear");
     printf("Busca sequencial, como o proprio nome diz eh uma busca feita em sequencia,\n");
     printf("registro a registro. O que em um DataSet grande, chega a ser inviável sua utilizacao\n");      
-    printf("\nDigite ENTER para continuar\n");
-    scanf("%c", &lixo);
-    //pause(9.0);
+    pause(9.0);
     system("clear");
 
     printf("Imagine um vetor de 10 elementos: Vetor{1,2,3,4,5,6,7,8,9,10}\n");
     printf("Agora imagine que você queira saber qual a posição que se encontra o valor 9\n.");        
-    printf("O algorismo irá percorrer todo o vetor para retorna o valor.\nAcompanhe o exemplo:\n");
-    printf("\nDigite ENTER para continuar\n");
-    scanf("%c", &lixo);       
-    //pause(11.0);
+    printf("O algorismo irá percorrer todo o vetor para retorna o valor.\nAcompanhe o exemplo:\n");       
+    pause(11.0);
     system("clear");
 
     printf("{x, , , , , , , , , }\n");
@@ -282,8 +276,7 @@ void tutorialBuscaBinaria(){
     printf("o que reduz drasticamente o tempo de execucao, porem o vetor precisa estar ordenado!\n\n");
 
     printf("Vamos achar o 9 de novo!\n");
-    printf("\nDigite ENTER para continuar\n");
-    scanf("%c", &lixo);
+    pause(12);
 
     system("clear");
     printf("{1,2,3,4,5,6,7,8,9,10}\n");
@@ -315,8 +308,7 @@ void tutorialBuscaPorInterpolacao(){
     printf("      A[n] = valor armazenado no índice 'n' da lista \n");
     printf("      x = valor procurado\n");
     printf("Exemplo: Em um vetor y = (1,2,3,4,5,6,7,8,9,10)iremos buscar a posição que o elemento 2 ocupa\n");
-    printf("\nDigite ENTER para continuar\n");
-    scanf("%c", &lixo);
+    pause(20);
 
     
         printf("temos que inferior = 0, superior = 9, A[inferior] = 1, A[superior] = 10 e x = 2\n");
@@ -408,6 +400,63 @@ void pause (float delay1) {
    }
 
    return;
+
+}
+
+int buscaBinSimples(int vetor[], int esquerda, int direita, int valor){
+    if(direita>=esquerda){
+        int i = esquerda+(direita-esquerda)/2;
+        int atual = vetor[i];
+        if(atual == valor){
+            return i+1;
+        }
+        if(atual > valor){
+            return buscaBinSimples(vetor, esquerda, i-1, valor);
+        }
+        return buscaBinSimples(vetor, i+1, direita, valor);
+    }
+    return -1;
+}
+
+void comparativo(int vetor[], int numBusca){
+    int indBin, indInter;
+    clock_t inicio, fim;
+    double binario, sequencial, interpolacao;
+
+    //Sequencial
+    system("clear");
+    printf("==========================\n");
+    printf("Sequencial\n");
+    inicio = clock();
+    buscaSequencial(vetor, numBusca);
+    fim = clock();
+    sequencial = (double)(fim-inicio)/CLOCKS_PER_SEC;
+    printf("==========================\n");
+
+    //Binario
+    printf("==========================\n");
+    inicio = clock();
+    indBin = buscaBinSimples(vetor, 0, DIM-1, numBusca);
+    fim = clock();
+    printf("Binario\n");
+    printf("Posicao: %d\n", indBin);
+    binario = (double)(fim-inicio)/CLOCKS_PER_SEC;
+    printf("==========================\n");
+
+    //Interpolacao
+    printf("==========================\n");
+    inicio = clock();
+    indInter = pesqInter(vetor, numBusca);
+    fim = clock();
+    printf("Interpolacao\n");
+    printf("Posicao: %d\n", indInter);
+    interpolacao = (double)(fim-inicio)/CLOCKS_PER_SEC;
+    printf("==========================\n");
+
+    printf("\nTempo:\n");
+    printf("Sequencial: %lfms\n", sequencial);
+    printf("Binario: %lfms\n", binario);
+    printf("Interpolacao: %lfms\n", interpolacao);
 
 }
 
